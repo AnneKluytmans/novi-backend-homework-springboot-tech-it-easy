@@ -2,7 +2,7 @@ package nl.novi.techiteasy.mappers;
 
 import nl.novi.techiteasy.dtos.SalesInfoDto;
 import nl.novi.techiteasy.dtos.TelevisionInputDto;
-import nl.novi.techiteasy.dtos.TelevisionResponseDto;
+import nl.novi.techiteasy.dtos.TelevisionDto;
 import nl.novi.techiteasy.models.Television;
 import org.springframework.stereotype.Component;
 
@@ -11,8 +11,8 @@ import java.util.stream.Collectors;
 
 @Component
 public class TelevisionMapper {
-    public static TelevisionResponseDto toDto(Television television) {
-        TelevisionResponseDto dto = new TelevisionResponseDto();
+    public static TelevisionDto toDto(Television television) {
+        TelevisionDto dto = new TelevisionDto();
         dto.setId(television.getId());
         dto.setType(television.getType());
         dto.setBrand(television.getBrand());
@@ -34,7 +34,7 @@ public class TelevisionMapper {
         return dto;
     }
 
-    public static List<TelevisionResponseDto> toDtoList(List<Television> televisions) {
+    public static List<TelevisionDto> toDtoList(List<Television> televisions) {
         return televisions.stream().map(TelevisionMapper::toDto).collect(Collectors.toList());
     }
 

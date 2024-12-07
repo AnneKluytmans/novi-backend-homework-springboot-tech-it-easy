@@ -2,7 +2,8 @@ package nl.novi.techiteasy.services;
 
 import nl.novi.techiteasy.dtos.SalesInfoDto;
 import nl.novi.techiteasy.dtos.TelevisionInputDto;
-import nl.novi.techiteasy.dtos.TelevisionResponseDto;
+import nl.novi.techiteasy.dtos.TelevisionDto;
+import nl.novi.techiteasy.dtos.TelevisionPatchDto;
 import nl.novi.techiteasy.exceptions.RecordNotFoundException;
 import nl.novi.techiteasy.mappers.TelevisionMapper;
 import nl.novi.techiteasy.models.Television;
@@ -19,24 +20,24 @@ public class TelevisionService {
         this.televisionRepository = televisionRepository;
     }
 
-    public List<TelevisionResponseDto> getTelevisions(String brand) {
+    public List<TelevisionDto> getTelevisions(String brand) {
         List<Television> televisions = (brand == null) ? televisionRepository.findAll() : televisionRepository.findByBrandIgnoreCase(brand);
         return TelevisionMapper.toDtoList(televisions);
     }
 
-    public TelevisionResponseDto getTelevisionById(Long id) {
+    public TelevisionDto getTelevisionById(Long id) {
         Television television = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television with ID " + id + " not found"));
         return TelevisionMapper.toDto(television);
     }
 
-    public TelevisionResponseDto addTelevision(TelevisionInputDto inputDto) {
+    public TelevisionDto addTelevision(TelevisionInputDto inputDto) {
         Television television = TelevisionMapper.toEntity(inputDto);
         Television savedTelevision = televisionRepository.save(television);
         return TelevisionMapper.toDto(savedTelevision);
     }
 
-    public TelevisionResponseDto updateTelevision(Long id, TelevisionInputDto inputDto) {
+    public TelevisionDto updateTelevision(Long id, TelevisionInputDto inputDto) {
         Television television = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television with ID " + id + " not found"));
 
@@ -61,60 +62,60 @@ public class TelevisionService {
         return TelevisionMapper.toDto(televisionRepository.save(television));
     }
 
-    public TelevisionResponseDto partialUpdateTelevision(Long id, TelevisionInputDto inputDto) {
+    public TelevisionDto partialUpdateTelevision(Long id, TelevisionPatchDto patchDto) {
         Television television = televisionRepository.findById(id)
                 .orElseThrow(() -> new RecordNotFoundException("Television with ID " + id + " not found"));
 
-        if (inputDto.getType() != null) {
-            television.setType(inputDto.getType());
+        if (patchDto.getType() != null) {
+            television.setType(patchDto.getType());
         }
-        if (inputDto.getBrand() != null) {
-            television.setBrand(inputDto.getBrand());
+        if (patchDto.getBrand() != null) {
+            television.setBrand(patchDto.getBrand());
         }
-        if (inputDto.getName() != null) {
-            television.setName(inputDto.getName());
+        if (patchDto.getName() != null) {
+            television.setName(patchDto.getName());
         }
-        if (inputDto.getPrice() != null) {
-            television.setPrice(inputDto.getPrice());
+        if (patchDto.getPrice() != null) {
+            television.setPrice(patchDto.getPrice());
         }
-        if (inputDto.getAvailableSize() != null) {
-            television.setAvailableSize(inputDto.getAvailableSize());
+        if (patchDto.getAvailableSize() != null) {
+            television.setAvailableSize(patchDto.getAvailableSize());
         }
-        if (inputDto.getRefreshRate() != null) {
-            television.setRefreshRate(inputDto.getRefreshRate());
+        if (patchDto.getRefreshRate() != null) {
+            television.setRefreshRate(patchDto.getRefreshRate());
         }
-        if (inputDto.getScreenType() != null) {
-            television.setScreenType(inputDto.getScreenType());
+        if (patchDto.getScreenType() != null) {
+            television.setScreenType(patchDto.getScreenType());
         }
-        if (inputDto.getScreenQuality() != null) {
-            television.setScreenQuality(inputDto.getScreenQuality());
+        if (patchDto.getScreenQuality() != null) {
+            television.setScreenQuality(patchDto.getScreenQuality());
         }
-        if (inputDto.getSmartTv() != null) {
-            television.setSmartTv(inputDto.getSmartTv());
+        if (patchDto.getSmartTv() != null) {
+            television.setSmartTv(patchDto.getSmartTv());
         }
-        if (inputDto.getWifi() != null) {
-            television.setWifi(inputDto.getWifi());
+        if (patchDto.getWifi() != null) {
+            television.setWifi(patchDto.getWifi());
         }
-        if (inputDto.getVoiceControl() != null) {
-            television.setVoiceControl(inputDto.getVoiceControl());
+        if (patchDto.getVoiceControl() != null) {
+            television.setVoiceControl(patchDto.getVoiceControl());
         }
-        if (inputDto.getHdr() != null) {
-            television.setHdr(inputDto.getHdr());
+        if (patchDto.getHdr() != null) {
+            television.setHdr(patchDto.getHdr());
         }
-        if (inputDto.getBluetooth() != null) {
-            television.setBluetooth(inputDto.getBluetooth());
+        if (patchDto.getBluetooth() != null) {
+            television.setBluetooth(patchDto.getBluetooth());
         }
-        if (inputDto.getAmbiLight() != null) {
-            television.setAmbiLight(inputDto.getAmbiLight());
+        if (patchDto.getAmbiLight() != null) {
+            television.setAmbiLight(patchDto.getAmbiLight());
         }
-        if (inputDto.getOriginalStock() != null) {
-            television.setOriginalStock(inputDto.getOriginalStock());
+        if (patchDto.getOriginalStock() != null) {
+            television.setOriginalStock(patchDto.getOriginalStock());
         }
-        if (inputDto.getSold() != null) {
-            television.setSold(inputDto.getSold());
+        if (patchDto.getSold() != null) {
+            television.setSold(patchDto.getSold());
         }
-        if (inputDto.getSaleDate() != null) {
-            television.setSaleDate(inputDto.getSaleDate());
+        if (patchDto.getSaleDate() != null) {
+            television.setSaleDate(patchDto.getSaleDate());
         }
         return TelevisionMapper.toDto(televisionRepository.save(television));
     }
