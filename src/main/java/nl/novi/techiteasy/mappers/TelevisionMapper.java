@@ -6,6 +6,7 @@ import nl.novi.techiteasy.models.Television;
 import org.springframework.stereotype.Component;
 
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Component
 public class TelevisionMapper {
@@ -33,7 +34,7 @@ public class TelevisionMapper {
     }
 
     public static List<TelevisionResponseDto> toDtoList(List<Television> televisions) {
-        return televisions.stream().map(TelevisionMapper::toDto).toList();
+        return televisions.stream().map(TelevisionMapper::toDto).collect(Collectors.toList());
     }
 
     public static Television toEntity(TelevisionInputDto inputDto) {

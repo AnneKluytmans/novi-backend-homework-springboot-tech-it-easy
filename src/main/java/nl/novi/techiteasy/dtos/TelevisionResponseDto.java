@@ -1,6 +1,5 @@
 package nl.novi.techiteasy.dtos;
 
-import jakarta.persistence.*;
 import nl.novi.techiteasy.enums.TelevisionType;
 
 import java.time.LocalDate;

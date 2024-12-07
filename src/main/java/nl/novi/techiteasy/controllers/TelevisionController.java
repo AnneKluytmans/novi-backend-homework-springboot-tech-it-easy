@@ -54,7 +54,7 @@ public class TelevisionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Television> updateTelevisionById(@PathVariable Long id, @RequestBody Television newTelevision) {
+    public ResponseEntity<Television> updateTelevision(@PathVariable Long id, @RequestBody Television newTelevision) {
         Optional<Television> existingTelevision = televisionRepository.findById(id);
 
         if (existingTelevision.isPresent()) {
