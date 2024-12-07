@@ -1,5 +1,6 @@
 package nl.novi.techiteasy.mappers;
 
+import nl.novi.techiteasy.dtos.SalesInfoDto;
 import nl.novi.techiteasy.dtos.TelevisionInputDto;
 import nl.novi.techiteasy.dtos.TelevisionResponseDto;
 import nl.novi.techiteasy.models.Television;
@@ -57,5 +58,18 @@ public class TelevisionMapper {
         television.setSold(inputDto.getSold());
         television.setSaleDate(inputDto.getSaleDate());
         return television;
+    }
+
+    public static SalesInfoDto toSalesInfoDto(Television television) {
+        var dto = new SalesInfoDto();
+        dto.setId(television.getId());
+        dto.setPrice(television.getPrice());
+        dto.setOriginalStock(television.getOriginalStock());
+        dto.setSold(television.getSold());
+        return dto;
+    }
+
+    public static List<SalesInfoDto> toSalesInfoDtoList(List<Television> televisions) {
+        return televisions.stream().map(TelevisionMapper::toSalesInfoDto).collect(Collectors.toList());
     }
 }

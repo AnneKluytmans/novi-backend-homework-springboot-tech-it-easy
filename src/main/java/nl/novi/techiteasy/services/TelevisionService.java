@@ -1,5 +1,6 @@
 package nl.novi.techiteasy.services;
 
+import nl.novi.techiteasy.dtos.SalesInfoDto;
 import nl.novi.techiteasy.dtos.TelevisionInputDto;
 import nl.novi.techiteasy.dtos.TelevisionResponseDto;
 import nl.novi.techiteasy.exceptions.RecordNotFoundException;
@@ -123,5 +124,9 @@ public class TelevisionService {
             throw new RecordNotFoundException("Television with ID " + id + " not found");
         }
         televisionRepository.deleteById(id);
+    }
+
+    public List<SalesInfoDto> getSalesInfo() {
+        return TelevisionMapper.toSalesInfoDtoList(televisionRepository.findAll());
     }
 }

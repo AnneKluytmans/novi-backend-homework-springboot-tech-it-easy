@@ -1,5 +1,6 @@
 package nl.novi.techiteasy.controllers;
 
+import nl.novi.techiteasy.dtos.SalesInfoDto;
 import nl.novi.techiteasy.dtos.TelevisionInputDto;
 import nl.novi.techiteasy.dtos.TelevisionResponseDto;
 import nl.novi.techiteasy.services.TelevisionService;
@@ -47,5 +48,10 @@ public class TelevisionController {
     public ResponseEntity<Void> deleteTelevisionById(@PathVariable Long id) {
         televisionService.deleteTelevision(id);
         return ResponseEntity.noContent().build();
+    }
+
+    @GetMapping("/sales")
+    public ResponseEntity<List<SalesInfoDto>> getSalesInfo() {
+        return ResponseEntity.ok(televisionService.getSalesInfo());
     }
 }
