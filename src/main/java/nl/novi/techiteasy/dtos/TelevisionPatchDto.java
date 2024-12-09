@@ -1,47 +1,31 @@
-package nl.novi.techiteasy.models;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+package nl.novi.techiteasy.dtos;
 
 import nl.novi.techiteasy.enums.TelevisionType;
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 
-@Entity
-public class Television {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+public class TelevisionPatchDto {
 
-    @Enumerated(EnumType.STRING)
-    @NotNull(message = "Type is required.")
     private TelevisionType type;
 
-    @NotBlank(message = "Brand cannot be empty.")
     @Size(max = 50, message = "Brand name cannot exceed 50 characters.")
     private String brand;
 
-    @NotBlank(message = "Name cannot be empty.")
-    @Size(max = 100, message = "Name cannot exceed 100 characters.")
+    @Size(max = 50, message = "Name cannot exceed 50 characters.")
     private String name;
 
-    @NotNull(message = "Price is required.")
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0.")
     private Double price;
 
-    @NotNull(message = "Available size is required.")
     @DecimalMin(value = "0.1", message = "Available size must be greater than 0.")
     private Double availableSize;
 
-    @NotNull(message = "Refresh rate is required.")
     @Min(value = 30, message = "Refresh rate must be at least 30Hz.")
     private Integer refreshRate;
 
-    @NotBlank(message = "Screen type cannot be empty.")
     private String screenType;
-
-    @NotBlank(message = "Screen quality cannot be empty.")
     private String screenQuality;
-
     private Boolean smartTv;
     private Boolean wifi;
     private Boolean voiceControl;
@@ -49,70 +33,37 @@ public class Television {
     private Boolean bluetooth;
     private Boolean ambiLight;
 
-    @NotNull(message = "Original stock is required.")
     @Min(value = 0, message = "Original stock cannot be negative.")
     private Integer originalStock;
 
-    @NotNull(message = "Sold is required.")
     @Min(value = 0, message = "Sold items cannot be negative.")
     private Integer sold;
 
     private LocalDate saleDate;
 
-    // Default constructor
-    public Television() {
-    }
 
-    // Constructor
-    public Television(TelevisionType type, String brand, String name, Double price, Double availableSize, Integer refreshRate,
-                      String screenType, String screenQuality, Boolean smartTv, Boolean wifi, Boolean voiceControl,
-                      Boolean hdr, Boolean bluetooth, Boolean ambiLight, Integer originalStock, Integer sold, LocalDate saleDate) {
-        this.type = type;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
-        this.availableSize = availableSize;
-        this.refreshRate = refreshRate;
-        this.screenType = screenType;
-        this.screenQuality = screenQuality;
-        this.smartTv = smartTv;
-        this.wifi = wifi;
-        this.voiceControl = voiceControl;
-        this.hdr = hdr;
-        this.bluetooth = bluetooth;
-        this.ambiLight = ambiLight;
-        this.originalStock = originalStock;
-        this.sold = sold;
-        this.saleDate = saleDate;
-    }
-
-
-    //Getters
-    public Long getId() {
-        return id;
-    }
-
+    //getters
     public TelevisionType getType() {
         return type;
     }
 
-    public String getBrand() {
+    public @Size(max = 50, message = "Brand name cannot exceed 50 characters.") String getBrand() {
         return brand;
     }
 
-    public String getName() {
+    public @Size(max = 50, message = "Name cannot exceed 50 characters.") String getName() {
         return name;
     }
 
-    public Double getPrice() {
+    public @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0.") Double getPrice() {
         return price;
     }
 
-    public Double getAvailableSize() {
+    public @DecimalMin(value = "0.1", message = "Available size must be greater than 0.") Double getAvailableSize() {
         return availableSize;
     }
 
-    public Integer getRefreshRate() {
+    public @Min(value = 30, message = "Refresh rate must be at least 30Hz.") Integer getRefreshRate() {
         return refreshRate;
     }
 
@@ -148,11 +99,11 @@ public class Television {
         return ambiLight;
     }
 
-    public Integer getOriginalStock() {
+    public @Min(value = 0, message = "Original stock cannot be negative.") Integer getOriginalStock() {
         return originalStock;
     }
 
-    public Integer getSold() {
+    public @Min(value = 0, message = "Sold items cannot be negative.") Integer getSold() {
         return sold;
     }
 
@@ -161,28 +112,28 @@ public class Television {
     }
 
 
-    //Setters
+    //setters
     public void setType(TelevisionType type) {
         this.type = type;
     }
 
-    public void setBrand(String brand) {
+    public void setBrand(@Size(max = 50, message = "Brand name cannot exceed 50 characters.") String brand) {
         this.brand = brand;
     }
 
-    public void setName(String name) {
+    public void setName(@Size(max = 50, message = "Name cannot exceed 50 characters.") String name) {
         this.name = name;
     }
 
-    public void setPrice(Double price) {
+    public void setPrice(@DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0.") Double price) {
         this.price = price;
     }
 
-    public void setAvailableSize(Double availableSize) {
+    public void setAvailableSize(@DecimalMin(value = "0.1", message = "Available size must be greater than 0.") Double availableSize) {
         this.availableSize = availableSize;
     }
 
-    public void setRefreshRate(Integer refreshRate) {
+    public void setRefreshRate(@Min(value = 30, message = "Refresh rate must be at least 30Hz.") Integer refreshRate) {
         this.refreshRate = refreshRate;
     }
 
@@ -218,11 +169,11 @@ public class Television {
         this.ambiLight = ambiLight;
     }
 
-    public void setOriginalStock(Integer originalStock) {
+    public void setOriginalStock(@Min(value = 0, message = "Original stock cannot be negative.") Integer originalStock) {
         this.originalStock = originalStock;
     }
 
-    public void setSold(Integer sold) {
+    public void setSold(@Min(value = 0, message = "Sold items cannot be negative.") Integer sold) {
         this.sold = sold;
     }
 

@@ -1,18 +1,11 @@
-package nl.novi.techiteasy.models;
-
-import jakarta.persistence.*;
-import jakarta.validation.constraints.*;
+package nl.novi.techiteasy.dtos;
 
 import nl.novi.techiteasy.enums.TelevisionType;
+import jakarta.validation.constraints.*;
+
 import java.time.LocalDate;
 
-@Entity
-public class Television {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
-    @Enumerated(EnumType.STRING)
+public class TelevisionInputDto {
     @NotNull(message = "Type is required.")
     private TelevisionType type;
 
@@ -21,7 +14,7 @@ public class Television {
     private String brand;
 
     @NotBlank(message = "Name cannot be empty.")
-    @Size(max = 100, message = "Name cannot exceed 100 characters.")
+    @Size(max = 50, message = "Name cannot exceed 50 characters.")
     private String name;
 
     @NotNull(message = "Price is required.")
@@ -59,39 +52,7 @@ public class Television {
 
     private LocalDate saleDate;
 
-    // Default constructor
-    public Television() {
-    }
-
-    // Constructor
-    public Television(TelevisionType type, String brand, String name, Double price, Double availableSize, Integer refreshRate,
-                      String screenType, String screenQuality, Boolean smartTv, Boolean wifi, Boolean voiceControl,
-                      Boolean hdr, Boolean bluetooth, Boolean ambiLight, Integer originalStock, Integer sold, LocalDate saleDate) {
-        this.type = type;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
-        this.availableSize = availableSize;
-        this.refreshRate = refreshRate;
-        this.screenType = screenType;
-        this.screenQuality = screenQuality;
-        this.smartTv = smartTv;
-        this.wifi = wifi;
-        this.voiceControl = voiceControl;
-        this.hdr = hdr;
-        this.bluetooth = bluetooth;
-        this.ambiLight = ambiLight;
-        this.originalStock = originalStock;
-        this.sold = sold;
-        this.saleDate = saleDate;
-    }
-
-
-    //Getters
-    public Long getId() {
-        return id;
-    }
-
+    //getters
     public TelevisionType getType() {
         return type;
     }
@@ -161,7 +122,7 @@ public class Television {
     }
 
 
-    //Setters
+    //setters
     public void setType(TelevisionType type) {
         this.type = type;
     }

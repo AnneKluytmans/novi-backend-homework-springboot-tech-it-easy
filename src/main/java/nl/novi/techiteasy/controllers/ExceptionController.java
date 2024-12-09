@@ -1,6 +1,5 @@
 package nl.novi.techiteasy.controllers;
 
-import nl.novi.techiteasy.exceptions.InvalidTelevisionNameException;
 import nl.novi.techiteasy.exceptions.RecordNotFoundException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -17,10 +16,5 @@ public class ExceptionController {
     @ExceptionHandler(value = IndexOutOfBoundsException.class)
     public ResponseEntity<Object> handleIndexOutOfBounds(IndexOutOfBoundsException exception) {
         return new ResponseEntity<>(exception.getMessage(), HttpStatus.NOT_FOUND);
-    }
-
-    @ExceptionHandler(value = InvalidTelevisionNameException.class)
-    public ResponseEntity<Object> handleInvalidTelevisionName(InvalidTelevisionNameException exception) {
-        return new ResponseEntity<>(exception.getMessage(), HttpStatus.BAD_REQUEST);
     }
 }
