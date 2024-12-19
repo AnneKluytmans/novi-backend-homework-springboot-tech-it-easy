@@ -1,10 +1,7 @@
 package nl.novi.techiteasy.controllers;
 
 import jakarta.validation.Valid;
-import nl.novi.techiteasy.dtos.SalesInfoDto;
-import nl.novi.techiteasy.dtos.TelevisionInputDto;
-import nl.novi.techiteasy.dtos.TelevisionDto;
-import nl.novi.techiteasy.dtos.TelevisionPatchDto;
+import nl.novi.techiteasy.dtos.*;
 import nl.novi.techiteasy.services.TelevisionService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.BindingResult;
@@ -23,17 +20,17 @@ public class TelevisionController {
     }
 
     @GetMapping
-    public ResponseEntity<List<TelevisionDto>> getAllTelevisions(@RequestParam(value = "brand", required = false) String brand) {
+    public ResponseEntity<List<TelevisionResponseDTO>> getAllTelevisions(@RequestParam(value = "brand", required = false) String brand) {
         return ResponseEntity.ok(televisionService.getTelevisions(brand));
     }
 
     @GetMapping("/{id}")
-    public ResponseEntity<TelevisionDto> getTelevisionById(@PathVariable("id") Long id) {
+    public ResponseEntity<TelevisionResponseDTO> getTelevisionById(@PathVariable("id") Long id) {
         return ResponseEntity.ok(televisionService.getTelevisionById(id));
     }
 
     @PostMapping
-    public ResponseEntity<?> addTelevision(@Valid @RequestBody TelevisionInputDto newTelevision, BindingResult result) {
+    public ResponseEntity<?> addTelevision(@Valid @RequestBody TelevisionCreateDTO newTelevision, BindingResult result) {
         if(result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
@@ -41,16 +38,16 @@ public class TelevisionController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<?> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionInputDto inputDto,
+    public ResponseEntity<?> updateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionUpdateDTO updateDto,
                                               BindingResult result) {
         if(result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
         }
-        return ResponseEntity.ok(televisionService.updateTelevision(id, inputDto));
+        return ResponseEntity.ok(televisionService.updateTelevision(id, updateDto));
     }
 
     @PatchMapping("/{id}")
-    public ResponseEntity<?> partialUpdateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionPatchDto patchDto,
+    public ResponseEntity<?> partialUpdateTelevision(@PathVariable Long id, @Valid @RequestBody TelevisionPatchDTO patchDto,
                                                      BindingResult result) {
         if(result.hasErrors()) {
             return ResponseEntity.badRequest().body(result.getAllErrors());
@@ -65,7 +62,7 @@ public class TelevisionController {
     }
 
     @GetMapping("/sales")
-    public ResponseEntity<List<SalesInfoDto>> getSalesInfo() {
+    public ResponseEntity<List<SalesInfoResponseDTO>> getSalesInfo() {
         return ResponseEntity.ok(televisionService.getSalesInfo());
     }
 }

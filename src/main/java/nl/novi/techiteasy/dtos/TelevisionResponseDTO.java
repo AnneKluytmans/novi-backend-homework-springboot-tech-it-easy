@@ -4,7 +4,7 @@ import nl.novi.techiteasy.enums.TelevisionType;
 
 import java.time.LocalDate;
 
-public class TelevisionDto {
+public class TelevisionResponseDTO {
     private Long id;
     private TelevisionType type;
     private String brand;
@@ -24,6 +24,7 @@ public class TelevisionDto {
     private Integer sold;
     private LocalDate saleDate;
 
+    //getters
     public Long getId() {
         return id;
     }
@@ -97,6 +98,7 @@ public class TelevisionDto {
     }
 
 
+    //setters
     public void setId(Long id) {
         this.id = id;
     }

@@ -5,28 +5,13 @@ import jakarta.validation.constraints.*;
 
 import nl.novi.techiteasy.enums.TelevisionType;
 import java.time.LocalDate;
+import java.util.List;
 
 @Entity
-public class Television {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
-
+public class Television extends Product {
     @Enumerated(EnumType.STRING)
     @NotNull(message = "Type is required.")
     private TelevisionType type;
-
-    @NotBlank(message = "Brand cannot be empty.")
-    @Size(max = 50, message = "Brand name cannot exceed 50 characters.")
-    private String brand;
-
-    @NotBlank(message = "Name cannot be empty.")
-    @Size(max = 100, message = "Name cannot exceed 100 characters.")
-    private String name;
-
-    @NotNull(message = "Price is required.")
-    @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0.")
-    private Double price;
 
     @NotNull(message = "Available size is required.")
     @DecimalMin(value = "0.1", message = "Available size must be greater than 0.")
@@ -49,28 +34,27 @@ public class Television {
     private Boolean bluetooth;
     private Boolean ambiLight;
 
-    @NotNull(message = "Original stock is required.")
-    @Min(value = 0, message = "Original stock cannot be negative.")
-    private Integer originalStock;
+    @OneToMany(mappedBy = "television", cascade = CascadeType.ALL, orphanRemoval = true)
+    private List<CiModule> ciModules;
 
-    @NotNull(message = "Sold is required.")
-    @Min(value = 0, message = "Sold items cannot be negative.")
-    private Integer sold;
+    @ManyToMany
+    @JoinTable(
+            name = "television_wallbracket",
+            joinColumns = @JoinColumn(name = "television_id"),
+            inverseJoinColumns = @JoinColumn(name = "wallbracket_id")
+    )
+    private List<WallBracket> wallBrackets;
 
-    private LocalDate saleDate;
-
-    // Default constructor
+    // Constructors
     public Television() {
+        super();
     }
 
-    // Constructor
     public Television(TelevisionType type, String brand, String name, Double price, Double availableSize, Integer refreshRate,
                       String screenType, String screenQuality, Boolean smartTv, Boolean wifi, Boolean voiceControl,
                       Boolean hdr, Boolean bluetooth, Boolean ambiLight, Integer originalStock, Integer sold, LocalDate saleDate) {
+        super(brand, name, price, originalStock, sold, saleDate);
         this.type = type;
-        this.brand = brand;
-        this.name = name;
-        this.price = price;
         this.availableSize = availableSize;
         this.refreshRate = refreshRate;
         this.screenType = screenType;
@@ -81,152 +65,95 @@ public class Television {
         this.hdr = hdr;
         this.bluetooth = bluetooth;
         this.ambiLight = ambiLight;
-        this.originalStock = originalStock;
-        this.sold = sold;
-        this.saleDate = saleDate;
     }
 
-
-    //Getters
-    public Long getId() {
-        return id;
-    }
+    //Getters and setters
 
     public TelevisionType getType() {
         return type;
     }
 
-    public String getBrand() {
-        return brand;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Double getPrice() {
-        return price;
+    public void setType(TelevisionType type) {
+        this.type = type;
     }
 
     public Double getAvailableSize() {
         return availableSize;
     }
 
-    public Integer getRefreshRate() {
-        return refreshRate;
-    }
-
-    public String getScreenType() {
-        return screenType;
-    }
-
-    public String getScreenQuality() {
-        return screenQuality;
-    }
-
-    public Boolean getSmartTv() {
-        return smartTv;
-    }
-
-    public Boolean getWifi() {
-        return wifi;
-    }
-
-    public Boolean getVoiceControl() {
-        return voiceControl;
-    }
-
-    public Boolean getHdr() {
-        return hdr;
-    }
-
-    public Boolean getBluetooth() {
-        return bluetooth;
-    }
-
-    public Boolean getAmbiLight() {
-        return ambiLight;
-    }
-
-    public Integer getOriginalStock() {
-        return originalStock;
-    }
-
-    public Integer getSold() {
-        return sold;
-    }
-
-    public LocalDate getSaleDate() {
-        return saleDate;
-    }
-
-
-    //Setters
-    public void setType(TelevisionType type) {
-        this.type = type;
-    }
-
-    public void setBrand(String brand) {
-        this.brand = brand;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public void setPrice(Double price) {
-        this.price = price;
-    }
-
     public void setAvailableSize(Double availableSize) {
         this.availableSize = availableSize;
+    }
+
+    public Integer getRefreshRate() {
+        return refreshRate;
     }
 
     public void setRefreshRate(Integer refreshRate) {
         this.refreshRate = refreshRate;
     }
 
+    public String getScreenType() {
+        return screenType;
+    }
+
     public void setScreenType(String screenType) {
         this.screenType = screenType;
+    }
+
+    public String getScreenQuality() {
+        return screenQuality;
     }
 
     public void setScreenQuality(String screenQuality) {
         this.screenQuality = screenQuality;
     }
 
+    public Boolean getSmartTv() {
+        return smartTv;
+    }
+
     public void setSmartTv(Boolean smartTv) {
         this.smartTv = smartTv;
+    }
+
+    public Boolean getWifi() {
+        return wifi;
     }
 
     public void setWifi(Boolean wifi) {
         this.wifi = wifi;
     }
 
+    public Boolean getVoiceControl() {
+        return voiceControl;
+    }
+
     public void setVoiceControl(Boolean voiceControl) {
         this.voiceControl = voiceControl;
+    }
+
+    public Boolean getHdr() {
+        return hdr;
     }
 
     public void setHdr(Boolean hdr) {
         this.hdr = hdr;
     }
 
+    public Boolean getBluetooth() {
+        return bluetooth;
+    }
+
     public void setBluetooth(Boolean bluetooth) {
         this.bluetooth = bluetooth;
     }
 
+    public Boolean getAmbiLight() {
+        return ambiLight;
+    }
+
     public void setAmbiLight(Boolean ambiLight) {
         this.ambiLight = ambiLight;
-    }
-
-    public void setOriginalStock(Integer originalStock) {
-        this.originalStock = originalStock;
-    }
-
-    public void setSold(Integer sold) {
-        this.sold = sold;
-    }
-
-    public void setSaleDate(LocalDate saleDate) {
-        this.saleDate = saleDate;
     }
 }

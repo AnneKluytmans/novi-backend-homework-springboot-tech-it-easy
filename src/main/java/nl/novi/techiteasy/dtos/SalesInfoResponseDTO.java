@@ -1,6 +1,6 @@
 package nl.novi.techiteasy.dtos;
 
-public class SalesInfoDto {
+public class SalesInfoResponseDTO {
     private Long id;
     private Double price;
     private Integer originalStock;

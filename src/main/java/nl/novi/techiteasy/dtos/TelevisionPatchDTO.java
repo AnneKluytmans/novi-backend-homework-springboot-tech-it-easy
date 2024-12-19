@@ -5,36 +5,27 @@ import jakarta.validation.constraints.*;
 
 import java.time.LocalDate;
 
-public class TelevisionInputDto {
-    @NotNull(message = "Type is required.")
+public class TelevisionPatchDTO {
+
     private TelevisionType type;
 
-    @NotBlank(message = "Brand cannot be empty.")
     @Size(max = 50, message = "Brand name cannot exceed 50 characters.")
     private String brand;
 
-    @NotBlank(message = "Name cannot be empty.")
     @Size(max = 50, message = "Name cannot exceed 50 characters.")
     private String name;
 
-    @NotNull(message = "Price is required.")
     @DecimalMin(value = "0.0", inclusive = false, message = "Price must be greater than 0.")
     private Double price;
 
-    @NotNull(message = "Available size is required.")
     @DecimalMin(value = "0.1", message = "Available size must be greater than 0.")
     private Double availableSize;
 
-    @NotNull(message = "Refresh rate is required.")
     @Min(value = 30, message = "Refresh rate must be at least 30Hz.")
     private Integer refreshRate;
 
-    @NotBlank(message = "Screen type cannot be empty.")
     private String screenType;
-
-    @NotBlank(message = "Screen quality cannot be empty.")
     private String screenQuality;
-
     private Boolean smartTv;
     private Boolean wifi;
     private Boolean voiceControl;
@@ -42,15 +33,15 @@ public class TelevisionInputDto {
     private Boolean bluetooth;
     private Boolean ambiLight;
 
-    @NotNull(message = "Original stock is required.")
     @Min(value = 0, message = "Original stock cannot be negative.")
     private Integer originalStock;
 
-    @NotNull(message = "Sold is required.")
     @Min(value = 0, message = "Sold items cannot be negative.")
     private Integer sold;
 
+    @PastOrPresent(message = "Sale Date cannot be in the future.")
     private LocalDate saleDate;
+
 
     //getters
     public TelevisionType getType() {
